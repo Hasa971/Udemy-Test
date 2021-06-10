@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+/* eslint-disable */
+const protractorFlake = require ('protractor-flake');
+
+/**
+ * flake is a node script that uses protractor-flake package to re-run failed tests. Note
+ * that if we want reruns tests at file level, if one it fails, it will rerun all
+ * the it's in that describe. But it's still awesome.
+ */
+
+const protractorArgs = process.argv.splice(2);
+
+protractorFlake({
+    protractorPath: './node_modules/protractor/bin/protractor',
+    maxAttempts: 3,
+    parser: './js-files/my-parser.js',
+    nodeBin: 'node',
+    protractorArgs: protractorArgs
+}, (status) => {
+    process.exit(status);
+});
